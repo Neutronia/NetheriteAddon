@@ -10,6 +10,7 @@ use pocketmine\item\Armor;
 use pocketmine\item\ArmorTypeInfo;
 use pocketmine\item\Axe;
 use pocketmine\item\Hoe;
+use pocketmine\item\Item;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\Pickaxe;
@@ -81,6 +82,10 @@ class NetheriteAddon extends PluginBase{
 			$foot = new Armor(new ItemIdentifier(751, 0), "Netherite Boots", new ArmorTypeInfo(3, 481, ArmorInventory::SLOT_FEET))
 		);
 
+		ItemFactory::getInstance()->register(
+			$netheriteIngot = new Item(new ItemIdentifier(742, 0), "Netherite Ingot")
+		);
+
 		$tools = [
 			$sword,
 			$pickaxe,
@@ -90,7 +95,8 @@ class NetheriteAddon extends PluginBase{
 			$head,
 			$chest,
 			$leggings,
-			$foot
+			$foot,
+			$netheriteIngot
 		];
 		foreach($tools as $tool){
 			if(CreativeInventory::getInstance()->getItemIndex($tool) === -1){
