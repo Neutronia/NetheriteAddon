@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace alvin0319\NetheriteAddon;
 
+use pocketmine\block\BlockBreakInfo;
+use pocketmine\block\BlockFactory;
+use pocketmine\block\BlockIdentifier;
+use pocketmine\block\BlockToolType;
+use pocketmine\block\Opaque;
+use pocketmine\crafting\FurnaceRecipe;
+use pocketmine\crafting\FurnaceType;
+use pocketmine\crafting\ShapedRecipe;
+use pocketmine\crafting\ShapelessRecipe;
 use pocketmine\inventory\ArmorInventory;
 use pocketmine\inventory\CreativeInventory;
 use pocketmine\item\Armor;
@@ -11,12 +20,14 @@ use pocketmine\item\ArmorTypeInfo;
 use pocketmine\item\Axe;
 use pocketmine\item\Hoe;
 use pocketmine\item\Item;
+use pocketmine\item\ItemBlock;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\Pickaxe;
 use pocketmine\item\Shovel;
 use pocketmine\item\Sword;
 use pocketmine\item\ToolTier;
+use pocketmine\item\VanillaItems;
 use pocketmine\plugin\PluginBase;
 use ReflectionClass;
 
@@ -103,6 +114,169 @@ class NetheriteAddon extends PluginBase{
 				CreativeInventory::getInstance()->add($tool);
 			}
 		}
+
+		BlockFactory::getInstance()->register($b = new Opaque(new BlockIdentifier(526, 0), "Ancient Debris", new BlockBreakInfo(30, BlockToolType::PICKAXE, ToolTier::DIAMOND()->getHarvestLevel(), 3600.0)), true);
+
+		ItemFactory::getInstance()->register($i = new ItemBlock(new ItemIdentifier($b->getIdInfo()->getItemId(), 0), $b), true);
+
+		CreativeInventory::getInstance()->add($i);
+
+		ItemFactory::getInstance()->register($scrap = new Item(new ItemIdentifier(752, 0), "Netherite Scrap"));
+		CreativeInventory::getInstance()->add($scrap);
+
+		$this->getServer()->getCraftingManager()->getFurnaceRecipeManager(FurnaceType::FURNACE())
+			->register(new FurnaceRecipe($scrap, $i));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"AAA",
+				"ABB",
+				"BBC"
+			],
+			[
+				"A" => $scrap,
+				"B" => VanillaItems::GOLD_INGOT(),
+				"C" => VanillaItems::AIR()
+			],
+			[$netheriteIngot]
+		));
+
+		$diamondSword = VanillaItems::DIAMOND_SWORD();
+		$diamondPickaxe = VanillaItems::DIAMOND_PICKAXE();
+		$diamondShovel = VanillaItems::DIAMOND_SHOVEL();
+		$diamondAxe = VanillaItems::DIAMOND_AXE();
+		$diamondHoe = VanillaItems::DIAMOND_HOE();
+		$diamondHelmet = VanillaItems::DIAMOND_HELMET();
+		$diamondChestplate = VanillaItems::DIAMOND_CHESTPLATE();
+		$diamondLeggings = VanillaItems::DIAMOND_LEGGINGS();
+		$diamondBoots = VanillaItems::DIAMOND_BOOTS();
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondSword,
+				"C" => VanillaItems::AIR()
+			],
+			[$sword]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondPickaxe,
+				"C" => VanillaItems::AIR()
+			],
+			[$pickaxe]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondShovel,
+				"C" => VanillaItems::AIR()
+			],
+			[$shovel]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondAxe,
+				"C" => VanillaItems::AIR()
+			],
+			[$axe]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondHoe,
+				"C" => VanillaItems::AIR()
+			],
+			[$hoe]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondHelmet,
+				"C" => VanillaItems::AIR()
+			],
+			[$head]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondChestplate,
+				"C" => VanillaItems::AIR()
+			],
+			[$chest]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondLeggings,
+				"C" => VanillaItems::AIR()
+			],
+			[$leggings]
+		));
+
+		$this->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+			[
+				"ABC",
+				"CCC",
+				"CCC"
+			],
+			[
+				"A" => $netheriteIngot,
+				"B" => $diamondBoots,
+				"C" => VanillaItems::AIR()
+			],
+			[$foot]
+		));
+
 
 		/*
 		$blockMapping = new ReflectionClass(RuntimeBlockMapping::class);
